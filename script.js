@@ -4,6 +4,13 @@ let operator;
 let isResettable = true;
 const displayNode = document.querySelector("#display");
 
+function resetGlobalVars(){
+    firstNumber = undefined;
+    secondNumber = undefined;
+    operator = undefined;
+    isResettable = true;
+}
+
 function add(number1, number2){
     return number1 + number2;
 }
@@ -53,6 +60,11 @@ function updateFirstNumber(){
     for(let i = 0; i < listOfOperatorButtons.length; i++){
         const operatorButton = listOfOperatorButtons[i];
         operatorButton.addEventListener("click", () => {
+            if(firstNumber !== undefined){
+                finishCalculation();
+                firstNumber = undefined;
+            }
+
             firstNumber = Number(displayNode.textContent);
             operator = operatorButton.textContent;
             isResettable = true;
@@ -60,15 +72,17 @@ function updateFirstNumber(){
     }
 }
 
-function completeCalculation(){
+function updateEqualsButton(){
     const equalsButton = document.querySelector("#equals-button");
-    equalsButton.addEventListener("click", () => {
-        secondNumber = Number(displayNode.textContent);
-        displayNode.textContent = operate(operator, firstNumber, secondNumber);
-        isResettable = true;
-    });
+    equalsButton.addEventListener("click", finishCalculation);
+}
+
+function finishCalculation(){
+    secondNumber = Number(displayNode.textContent);
+    displayNode.textContent = operate(operator, firstNumber, secondNumber);
+    resetGlobalVars();
 }
 
 populateDisplay();
 updateFirstNumber();
-completeCalculation();
+updateEqualsButton();
