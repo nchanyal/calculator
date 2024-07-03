@@ -81,9 +81,11 @@ function updateEqualsButton(){
 }
 
 function finishCalculation(){
-    secondNumber = Number(displayNode.textContent);
-    displayNode.textContent = operate(operator, firstNumber, secondNumber);
-    resetGlobalVars();
+    if(firstNumber !== undefined && operator !== undefined){
+        secondNumber = Number(displayNode.textContent);
+        displayNode.textContent = operate(operator, firstNumber, secondNumber);
+        resetGlobalVars();
+    }
 }
 
 function addDecimalButton(){
