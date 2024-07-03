@@ -53,6 +53,9 @@ function populateDisplay(){
             }
         });
     }
+
+    updateFirstNumber();
+    updateEqualsButton();
 }
 
 function updateFirstNumber(){
@@ -83,6 +86,18 @@ function finishCalculation(){
     resetGlobalVars();
 }
 
+function addDecimalButton(){
+    const decimalButton = document.querySelector("#decimal-button");
+    decimalButton.addEventListener("click", () => {
+        if(displayNode.textContent == firstNumber){
+            displayNode.textContent = "0.";
+            isResettable = false;
+        }else if(!displayNode.textContent.includes(".")){
+            displayNode.textContent += ".";
+            isResettable = false;
+        }
+    });
+}
+
 populateDisplay();
-updateFirstNumber();
-updateEqualsButton();
+addDecimalButton();
