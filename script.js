@@ -101,5 +101,14 @@ function addDecimalButton(){
     });
 }
 
+function addClearButton(){
+    const clearButton = document.querySelector("#clear-button");
+    clearButton.addEventListener("click", () => {
+        resetGlobalVars();
+        displayNode.textContent = "0";
+    });
+}
+
 populateDisplay();
 addDecimalButton();
+addClearButton();
