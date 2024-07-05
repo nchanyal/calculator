@@ -24,7 +24,7 @@ function multiply(number1, number2){
 }
 
 function divide(number1, number2){
-    return number1 / number2;
+    return number2 === 0 ? "nice try" : number1 / number2;
 }
 
 function operate(operator, num1, num2){
