@@ -123,7 +123,21 @@ function addChangeSignButton(){
     });
 }
 
+function addPercentButton(){
+    const percentBtn = document.querySelector("#percentage-button");
+    percentBtn.addEventListener("click", () => {
+        let percentage = String(Number(displayNode.textContent) / 100);
+
+        if(percentage.length > 14){
+            displayNode.textContent = percentage.slice(0, 12);
+        }else {
+            displayNode.textContent = Number(displayNode.textContent) / 100;
+        }
+    });
+}
+
 populateDisplay();
 addDecimalButton();
 addClearButton();
 addChangeSignButton();
+addPercentButton();
