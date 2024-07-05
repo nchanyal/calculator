@@ -48,8 +48,9 @@ function populateDisplay(){
             if(isResettable){
                 displayNode.textContent = currentNumberButton.textContent;
                 isResettable = false;
-            }else if(displayNode.textContent !== "0" || 
-                currentNumberButton.textContent !== "0") {
+            }else if((displayNode.textContent !== "0" || 
+                currentNumberButton.textContent !== "0") && 
+                displayNode.textContent.length < 12) {
                 displayNode.textContent += currentNumberButton.textContent;
             }
         });
@@ -84,7 +85,7 @@ function updateEqualsButton(){
 function finishCalculation(){
     if(firstNumber !== undefined && operator !== undefined){
         secondNumber = Number(displayNode.textContent);
-        displayNode.textContent = operate(operator, firstNumber, secondNumber);
+        outputNumber(operate(operator, firstNumber, secondNumber));
         resetGlobalVars();
     }
 }
@@ -126,14 +127,18 @@ function addChangeSignButton(){
 function addPercentButton(){
     const percentBtn = document.querySelector("#percentage-button");
     percentBtn.addEventListener("click", () => {
-        let percentage = String(Number(displayNode.textContent) / 100);
-
-        if(percentage.length > 14){
-            displayNode.textContent = percentage.slice(0, 12);
-        }else {
-            displayNode.textContent = Number(displayNode.textContent) / 100;
-        }
+        let percentage = Number(displayNode.textContent) / 100;
+        outputNumber(percentage);
     });
+}
+
+function outputNumber(number){
+    let strOfNumber = String(number);
+    if(strOfNumber.length > 14){
+        displayNode.textContent = strOfNumber.slice(0, 12);
+    }else {
+        displayNode.textContent = strOfNumber;
+    }
 }
 
 populateDisplay();
