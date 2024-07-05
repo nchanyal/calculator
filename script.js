@@ -48,7 +48,8 @@ function populateDisplay(){
             if(isResettable){
                 displayNode.textContent = currentNumberButton.textContent;
                 isResettable = false;
-            }else {
+            }else if(displayNode.textContent !== "0" || 
+                currentNumberButton.textContent !== "0") {
                 displayNode.textContent += currentNumberButton.textContent;
             }
         });
@@ -109,6 +110,20 @@ function addClearButton(){
     });
 }
 
+function addChangeSignButton(){
+    const changeSignBtn = document.querySelector("#change-sign-button");
+    changeSignBtn.addEventListener("click", () => {
+        if(displayNode.textContent !== "0"){
+            if(displayNode.textContent.includes("-")){
+                displayNode.textContent = displayNode.textContent.replace("-", "");
+            }else {
+                displayNode.textContent = "-" + displayNode.textContent;
+            }
+        }
+    });
+}
+
 populateDisplay();
 addDecimalButton();
 addClearButton();
+addChangeSignButton();
